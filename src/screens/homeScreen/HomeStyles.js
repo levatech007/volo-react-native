@@ -5,8 +5,7 @@ const homeStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    backgroundColor: 'aqua',
+    backgroundColor: '#00f260',
   },
   welcome: {
     fontSize: 20,
@@ -18,6 +17,10 @@ const homeStyles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  logo: {
+  flex: 1,
+  width: 300,
+  }
 });
 
 export { homeStyles }
