@@ -1,0 +1,24 @@
+{
+  "name": "react-native-gradient",
+  "version": "0.4.9",
+  "homepage": "https://github.com/Q42/react-native-gradient",
+  "summary": "Gradient component for React Native",
+  "license": "MIT",
+  "authors": {
+    "Q42": "https://q42.nl"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source": {
+    "git": "https://github.com/Q42/react-native-gradient.git",
+    "tag": "0.4.9"
+  },
+  "source_files": "RNQ42Gradient/*.{h,m,swift}",
+  "preserve_paths": "**/*.js",
+  "dependencies": {
+    "React": [
+
+    ]
+  }
+}
