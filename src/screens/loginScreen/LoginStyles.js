@@ -6,6 +6,12 @@ const loginStyles = StyleSheet.create({
     backgroundColor: '#00f260',
     justifyContent: 'center',
   },
+  containerPortrait: {
+    padding: 15,
+  },
+  containerLandscape: {
+    padding: 100,
+  },
   textInput: {
     margin: 15,
     height: 40,

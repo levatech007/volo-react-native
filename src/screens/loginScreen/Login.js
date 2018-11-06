@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
 import { loginStyles } from './LoginStyles';
+import Platform from '../../../Platform.js';
 
 class Login extends Component {
   constructor() {
@@ -14,14 +15,13 @@ class Login extends Component {
 
   logUserIn() {
     Alert.alert(this.state.password + ' ' + this.state.email)
-
   }
 
   render() {
     return(
-      <View style={loginStyles.container}>
+      <View style={[loginStyles.container, Platform.isPortrait() ? loginStyles.containerPortrait : loginStyles.containerLandscape]}>
         <TextInput
-          style={loginStyles.textInput}
+          style={ loginStyles.textInput}
           placeholder='Email'
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
