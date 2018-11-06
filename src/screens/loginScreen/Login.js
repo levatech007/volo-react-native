@@ -2,14 +2,23 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
 import { loginStyles } from './LoginStyles';
 import Platform from '../../../Platform.js';
+import { Dimensions } from 'react-native';
+
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      orientation: Platform.isPortrait() ? 'portrait' : 'landscape',
     }
+
+    Dimensions.addEventListener('change', () => {
+        this.setState({
+            orientation: Platform.isPortrait() ? 'portrait' : 'landscape'
+        });
+    });
     this.logUserIn = this.logUserIn.bind(this);
   }
 
