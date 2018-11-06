@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Button, Alert, Text } from 'react-native';
+import { View, Image, Button, Text } from 'react-native';
 import { homeStyles } from './HomeStyles';
 import Logo from './Volo-logo.png'
 
@@ -14,7 +14,7 @@ class App extends Component<Props> {
   }
 
   goToLogin() {
-    Alert.alert("Connected!")
+    this.props.navigation.navigate('Login')
   }
 
   render() {
