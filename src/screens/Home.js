@@ -3,40 +3,39 @@ import { View, Image, TouchableOpacity, Text } from 'react-native';
 import { homeStyles } from './assets/HomeStyles';
 import { generalStyles } from './assets/GeneralStyles';
 import Logo from './images/Volo-logo.png';
+import WideButton from '../components/WideButton';
+import Alert from '../components/Alert';
 
 type Props = {};
-class App extends Component<Props> {
+class Home extends Component<Props> {
   constructor() {
     super();
     this.state= {
-      user: ''
+      user: 'Sam',
+      buttonNames: ["Locations", "Profile","Logout"],
     }
-    this.goToLogin = this.goToLogin.bind(this);
-    this.goToLocations = this.goToLocations.bind(this);
+    this.goToPage = this.goToPage.bind(this);
   }
 
-  goToLogin() {
-    this.props.navigation.navigate('Login');
+  goToPage(selection) {
+    this.props.navigation.navigate(selection);
   }
-
-  goToLocations() {
-    this.props.navigation.navigate('Locations');
-  }
-
 
   render() {
     return (
       <View style={[generalStyles.container, homeStyles.container]}>
+        <Alert />
           <Image source={ Logo } resizeMode='contain' style={homeStyles.logo}/>
-          <TouchableOpacity style={generalStyles.submitButton} title='Locations' onPress={ this.goToLocations } >
-            <Text style={generalStyles.submitButtonText}>See Locations</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={generalStyles.submitButton} title='Login' onPress={ this.goToLogin } >
-            <Text style={generalStyles.submitButtonText}>Login</Text>
-          </TouchableOpacity>
+          {
+            this.state.buttonNames.map((title, idx) => {
+              return(
+                <WideButton title={ title } key={ idx } goToPage={ this.goToPage }></WideButton>
+              )
+            })
+          }
       </View>
     );
   }
 }
 
-export default App;
+export default Home;

@@ -10,6 +10,7 @@ class Locations extends Component {
     super();
     this.state = {
       favColor: '',
+      locations: [],
       items: [
           {
               label: 'Red',
@@ -26,6 +27,15 @@ class Locations extends Component {
       ],
     }
     this.selectLocation = this.selectLocation.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(`${process.env[BACKEND_URL]}/locations`)
+        .then((res) => {
+          return res.json();
+        }).then((locations) => {
+          this.setState({ locations: locations })
+    });
   }
 
   selectLocation() {
