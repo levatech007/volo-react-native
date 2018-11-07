@@ -3,12 +3,12 @@ import AuthLoadingScreen from './src/screens/AuthLoading';
 import HomeScreen from './src/screens/Home';
 import LoginScreen from './src/screens/Login';
 import LocationsScreen from './src/screens/Locations';
-// import ProfileScreen from './src/screens/Profile';
+import ProfileScreen from './src/screens/Profile';
 
 const AppStack = createStackNavigator({
   Home: HomeScreen,
   Locations: LocationsScreen,
-  // Profile: ProfileScreen,
+  Profile: ProfileScreen,
 });
 const AuthStack = createStackNavigator({
   Login: LoginScreen
