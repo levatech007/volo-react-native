@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
+import {
+  Modal,
+  TouchableWithoutFeedback,
+  Text,
+  StyleSheet,
+  Platform,
+  View,
+  Picker,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import WideButton from '../components/WideButton';
 import { locationStyles } from './assets/LocationStyles';
 import { generalStyles } from './assets/GeneralStyles';
 
@@ -9,55 +19,70 @@ class Locations extends Component {
   constructor() {
     super();
     this.state = {
-      favColor: '',
       locations: [],
-      items: [
-          {
-              label: 'Red',
-              value: 'red',
-          },
-          {
-              label: 'Orange',
-              value: 'orange',
-          },
-          {
-              label: 'Blue',
-              value: 'blue',
-          },
-      ],
+      selectedLocation: '',
+      modalVisible: false,
     }
     this.selectLocation = this.selectLocation.bind(this);
   }
 
   componentDidMount() {
-    fetch(`${process.env[BACKEND_URL]}/locations`)
+    fetch("http://localhost:8000/locations") //change to process.env['BACKEND_URL']
         .then((res) => {
           return res.json();
         }).then((locations) => {
-          this.setState({ locations: locations })
+          this.setState({
+            locations: locations,
+          });
     });
   }
 
   selectLocation() {
-    Alert.alert(this.state.favColor)
+    this.setState({
+       modalVisible: true
+     })
+     
   }
 
   render() {
     return(
       <View style={ generalStyles.container }>
-        <Text>Pick your location</Text>
-        <RNPickerSelect
-          items={this.state.items}
-          placeholder={{}}
-          onValueChange={(value) => {
-              this.setState({
-                  favColor: value,
-              });
-          }}>
-          <TouchableOpacity style={generalStyles.submitButton} title='Locations' onPress={ this.selectLocation }>
-            <Text style={generalStyles.submitButtonText}>See Locations</Text>
-          </TouchableOpacity>
-          </RNPickerSelect>
+        <Text>Pick your location:</Text>
+
+        <WideButton goToPage={ this.selectLocation } title="Find a location:"/>
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.modalVisible}
+          >
+          <TouchableWithoutFeedback
+              onPress={() => this.setState({ modalVisible: false })}>
+              <View style={locationStyles.modalContainer}>
+                <View style={locationStyles.buttonContainer}>
+                  <Text
+                    style={{ color: "blue" }}
+                    onPress={() => this.setState({ modalVisible: false })}
+                  >
+                    Done
+                  </Text>
+                </View>
+                <View>
+                  <Picker
+                    selectedValue={this.state.selectedLocation}
+                    onValueChange={(itemValue, itemIndex) => this.setState({selectedLocation: itemValue})}>
+                    {
+                      this.state.locations.map((location, idx) => {
+                        return(
+                          <Picker.Item label={ location.name } value={ location.name } key={ idx }/>
+                        )
+                      })
+                    }
+
+                  </Picker>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+        </Modal>
       </View>
     )
   }
