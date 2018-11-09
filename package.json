@@ -9,11 +9,11 @@
   "dependencies": {
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
-    "react-native-picker-select": "^5.0.1",
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.3",
     "react-test-renderer": "16.6.0-alpha.8af6728"
