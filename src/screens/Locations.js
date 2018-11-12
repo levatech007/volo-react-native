@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import WideButton from '../components/WideButton';
+import PickerModal from '../components/PickerModal';
 import { locationStyles } from './assets/LocationStyles';
 import { generalStyles } from './assets/GeneralStyles';
 
@@ -21,9 +22,12 @@ class Locations extends Component {
     this.state = {
       locations: [],
       selectedLocation: '',
+      locationIsSelected: false,
       modalVisible: false,
+      showLocationComponent: false,
+      showWeatherComponent: false,
     }
-    this.selectLocation = this.selectLocation.bind(this);
+    this.showLocationInfo=this.showLocationInfo.bind(this);
   }
 
   componentDidMount() {
@@ -37,52 +41,28 @@ class Locations extends Component {
     });
   }
 
-  selectLocation() {
+  showLocationInfo() {
     this.setState({
-       modalVisible: true
-     })
-     
+      locationIsSelected: true,
+    });
   }
+
+
 
   render() {
     return(
       <View style={ generalStyles.container }>
-        <Text>Pick your location:</Text>
-
-        <WideButton goToPage={ this.selectLocation } title="Find a location:"/>
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.modalVisible}
-          >
-          <TouchableWithoutFeedback
-              onPress={() => this.setState({ modalVisible: false })}>
-              <View style={locationStyles.modalContainer}>
-                <View style={locationStyles.buttonContainer}>
-                  <Text
-                    style={{ color: "blue" }}
-                    onPress={() => this.setState({ modalVisible: false })}
-                  >
-                    Done
-                  </Text>
-                </View>
-                <View>
-                  <Picker
-                    selectedValue={this.state.selectedLocation}
-                    onValueChange={(itemValue, itemIndex) => this.setState({selectedLocation: itemValue})}>
-                    {
-                      this.state.locations.map((location, idx) => {
-                        return(
-                          <Picker.Item label={ location.name } value={ location.name } key={ idx }/>
-                        )
-                      })
-                    }
-
-                  </Picker>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-        </Modal>
+        { this.state.locationIsSelected ?
+          <Text>{ this.state.selectedLocation }</Text> :
+        <PickerModal
+            showLocationInfo= { this.showLocationInfo }
+            items={ this.state.locations }
+            value={ this.state.selectedLocation }
+            onValueChange={ (itemValue, itemIndex) =>
+              this.setState({ selectedLocation: itemValue }) //move this into its own function!
+            }
+          />
+        }
       </View>
     )
   }
